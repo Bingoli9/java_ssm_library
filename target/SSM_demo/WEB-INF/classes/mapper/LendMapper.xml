@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 映射 接口 IBookDao -->
+<mapper namespace="com.mecol.bookshop_ssm.dao.LendDao">
+
+    <select id="getAllList" resultType="com.mecol.bookshop_ssm.entity.Lend">
+
+        select * from lend_list
+    </select>
+
+    <select id="getLendListById" resultType="com.mecol.bookshop_ssm.entity.Lend">
+        select * from lend_list where reader_id=#{readerId}
+    </select>
+    <delete id="deleteLendBySerNum" >
+        delete from lend_list where ser_num=#{serNum}
+    </delete>
+    <insert id="addLend" parameterType="com.mecol.bookshop_ssm.entity.Lend">
+        insert into lend_list(book_id,reader_id,lend_date,back_date) values (#{book_id},
+        #{reader_id},#{lend_date},#{back_date})
+    </insert>
+
+    <update id="updateLend" parameterType="com.mecol.bookshop_ssm.entity.Lend">
+
+        update lend_list
+        <set>
+            <if test="book_id!=null">
+                book_id=#{book_id},
+            </if>
+            <if test="reader_id!=null">
+                reader_id=#{reader_id},
+            </if>
+            <if test="lend_date!=null">
+                lend_date=#{lend_date},
+            </if>
+            <if test="back_date!=null">
+                back_date=#{back_date},
+            </if>
+        </set>
+        where ser_num=#{ser_num}
+    </update>
+
+    <insert id="addLendAndGetId" useGeneratedKeys="true" keyProperty="ser_num"
+            parameterType="com.mecol.bookshop_ssm.entity.Lend">
+        insert into lend_list(book_id,reader_id,lend_date,back_date) values (#{book_id},
+        #{reader_id},#{lend_date},#{back_date})
+    </insert>
+
+    <select id="getLendByReadIdAndBookId" resultType="com.mecol.bookshop_ssm.entity.Lend">
+        select * from lend_list where book_id=#{bookId} and reader_id=#{readerId} and back_date is NULL
+    </select>
+
+
+
+</mapper>

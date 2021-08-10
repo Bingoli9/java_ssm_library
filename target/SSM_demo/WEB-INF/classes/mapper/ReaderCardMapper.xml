@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 映射 接口 IBookDao -->
+<mapper namespace="com.mecol.bookshop_ssm.dao.ReaderCardDao">
+
+    <select id="selectReaderByIdAndPasswd" resultType="com.mecol.bookshop_ssm.entity.ReaderCard">
+        select * from reader_card where reader_id=#{id} and password=#{passwd}
+    </select>
+
+    <select id="getReadCardByName" resultType="com.mecol.bookshop_ssm.entity.ReaderCard">
+        select * from reader_card where username=#{name}
+    </select>
+
+    <select id="getReadCardById" resultType="com.mecol.bookshop_ssm.entity.ReaderCard" >
+        select * from reader_card where reader_id=#{readerId}
+    </select>
+
+    <update id="editReaderCard" parameterType="com.mecol.bookshop_ssm.entity.ReaderCard">
+
+        update reader_card
+        <set>
+            <if test="username!=null">
+                username=#{username},
+            </if>
+            <if test="password!=null">
+                password=#{password},
+            </if>
+
+        </set>
+        where reader_id=#{reader_id}
+    </update>
+
+    <insert id="addReaderCard" parameterType="com.mecol.bookshop_ssm.entity.ReaderCard">
+
+        insert into reader_card(reader_id,username,password) values (#{reader_id},#{username},#{password})
+    </insert>
+
+    <delete id="deleteReaderCardById">
+        delete from reader_card where reader_id=#{reader_id}
+    </delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+

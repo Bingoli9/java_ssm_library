@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 映射 接口 IBookDao -->
+<mapper namespace="com.mecol.bookshop_ssm.dao.ReaderInfoDao">
+
+    <select id="getAllReaderInfo" resultType="com.mecol.bookshop_ssm.entity.ReaderInfo">
+
+        select * from reader_info
+    </select>
+
+    <select id="getReaderInfoById" resultType="com.mecol.bookshop_ssm.entity.ReaderInfo">
+        select * from reader_info where reader_id=#{readerId}
+    </select>
+
+    <update id="editReaderInfo" parameterType="com.mecol.bookshop_ssm.entity.ReaderInfo">
+        update reader_info
+        <set>
+            <if test="name!=null">
+                name=#{name},
+            </if>
+            <if test="sex!=null">
+                sex=#{sex},
+            </if>
+            <if test="birth!=null">
+                birth=#{birth},
+            </if>
+            <if test="address!=null">
+                address=#{address},
+            </if>
+            <if test="phone!=null">
+                phone=#{phone},
+            </if>
+
+        </set>
+        where reader_id=#{reader_id}
+
+    </update>
+
+    <insert id="addReaderInfo" parameterType="com.mecol.bookshop_ssm.entity.ReaderInfo">
+        insert into reader_info(name,sex,birth,address,phone)
+        values (#{name},#{sex},#{birth},#{address},#{phone})
+    </insert>
+
+    <select id="getReaderInfoByName" resultType="com.mecol.bookshop_ssm.entity.ReaderInfo">
+        select * from reader_info where name=#{name}
+    </select>
+
+    <delete id="deleteReaderInfoById">
+        delete from reader_info where reader_id=#{readerId}
+    </delete>
+</mapper>

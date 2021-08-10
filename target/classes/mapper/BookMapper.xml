@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 映射 接口 IBookDao -->
+<mapper namespace="com.mecol.bookshop_ssm.dao.BookDao">
+
+    <select id="getAllBooks" resultType="com.mecol.bookshop_ssm.entity.Book">
+        select * from book_info
+    </select>
+
+    <select id="queryBook" resultType="com.mecol.bookshop_ssm.entity.Book">
+        select * from book_info where name like concat('%',#{searchWord},'%')
+
+    </select>
+
+    <select id="getBookById" resultType="com.mecol.bookshop_ssm.entity.Book">
+        select * from book_info where book_id=#{bookId}
+    </select>
+
+    <update id="editBook" parameterType="com.mecol.bookshop_ssm.entity.Book">
+        update book_info
+        <set>
+            <if test="name!=null">
+                name=#{name},
+            </if>
+            <if test="author!=null">
+                author=#{author},
+            </if>
+            <if test="publish!=null">
+                publish=#{publish},
+            </if>
+            <if test="ISBN!=null">
+                ISBN=#{ISBN},
+            </if>
+            <if test="introduction!=null">
+                introduction=#{introduction},
+            </if>
+            <if test="language!=null">
+                language=#{language},
+            </if>
+            <if test="price!=null">
+                price=#{price},
+            </if>
+            <if test="pub_date!=null">
+                pub_date=#{pub_date},
+            </if>
+            <if test="class_id!=null">
+                class_id=#{class_id},
+            </if>
+            <if test="number!=null">
+                number=#{number},
+            </if>
+        </set>
+        where book_id=#{book_id}
+
+    </update>
+
+    <delete id="deleteBookById" >
+        delete from book_info where book_id=#{bookId}
+    </delete>
+
+    <insert id="addBook" parameterType="com.mecol.bookshop_ssm.entity.Book">
+        insert into book_info(name,author,publish,ISBN,introduction,language,price,pub_date,
+       class_id,number )
+        values (#{name},#{author},#{publish},#{ISBN},#{introduction},#{language},#{price},
+       #{pub_date},#{class_id},#{number} )
+    </insert>
+
+</mapper>
